@@ -1,0 +1,16 @@
+[
+{
+  "modid": "lightpulse",
+  "name": "Light Pulse",
+  "description": "A technomagic mod about something bright.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Ourten"],
+  "credits": "Well, ... the keyboard ?",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
