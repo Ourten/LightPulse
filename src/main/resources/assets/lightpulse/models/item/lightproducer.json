@@ -1,0 +1,8 @@
+{
+	"parent": "block/cube_bottom_top",
+	"textures": {
+		"side": "lightpulse:blocks/producer_side",
+		"top": "lightpulse:blocks/producer_normal",
+		"bottom": "lightpulse:blocks/producer_side"
+	}
+}

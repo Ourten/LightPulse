@@ -22,17 +22,19 @@ public class LightPulseBlockManager
     }
 
     public final BlockLightProducer lightProducer = (BlockLightProducer) new BlockLightProducer()
-            .setCreativeTab(LightPulse.TAB_LIGHT_PULSE).setUnlocalizedName("BlockLightPulse")
-            .setRegistryName("BlockLightPulse");
+            .setCreativeTab(LightPulse.TAB_LIGHT_PULSE).setUnlocalizedName("BlockLightProducer");
 
     public void initBlocks()
     {
-        this.registerBlockWithItemBlock(this.lightProducer);
+        this.registerBlockWithItemBlock(this.lightProducer, "lightProducer");
     }
 
-    private void registerBlockWithItemBlock(final Block b)
+    private void registerBlockWithItemBlock(final Block b, final String registryName)
     {
+        b.setRegistryName(registryName);
         GameRegistry.register(b);
-        GameRegistry.register(new ItemBlock(b));
+        final ItemBlock itemBlock = new ItemBlock(b);
+        itemBlock.setRegistryName(registryName);
+        GameRegistry.register(itemBlock);
     }
 }

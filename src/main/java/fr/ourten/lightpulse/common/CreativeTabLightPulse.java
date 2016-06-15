@@ -1,5 +1,6 @@
 package fr.ourten.lightpulse.common;
 
+import fr.ourten.lightpulse.common.blocks.LightPulseBlockManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -13,6 +14,6 @@ public class CreativeTabLightPulse extends CreativeTabs
     @Override
     public Item getTabIconItem()
     {
-        return null;
+        return Item.getItemFromBlock(LightPulseBlockManager.getInstance().lightProducer);
     }
 }

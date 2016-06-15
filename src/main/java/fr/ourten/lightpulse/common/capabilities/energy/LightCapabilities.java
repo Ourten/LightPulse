@@ -82,10 +82,25 @@ public class LightCapabilities
 
     public static class BaseLightProducer implements ILightProducer
     {
+        private long outputRate;
+
+        public BaseLightProducer()
+        {
+
+        }
+
+        public BaseLightProducer(final long outputRate)
+        {
+            this.outputRate = outputRate;
+        }
+
         @Override
         public long produce(final long quantity, final boolean simulated)
         {
-            return quantity;
+            if (quantity >= this.outputRate)
+                return this.outputRate;
+            else
+                return quantity;
         }
     }
 
