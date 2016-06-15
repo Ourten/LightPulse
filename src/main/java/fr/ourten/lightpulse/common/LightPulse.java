@@ -1,5 +1,6 @@
 package fr.ourten.lightpulse.common;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -12,10 +13,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class LightPulse
 {
     @Instance(LightPulseVars.MODID)
-    public static LightPulse  instance;
+    public static LightPulse         instance;
 
     @SidedProxy(clientSide = "fr.ourten.lightpulse.client.ClientProxy", serverSide = "fr.ourten.lightpulse.server.ServerProxy")
-    public static CommonProxy proxy;
+    public static CommonProxy        proxy;
+
+    public static final CreativeTabs TAB_LIGHT_PULSE = new CreativeTabLightPulse();
 
     @EventHandler
     public void preInit(final FMLPreInitializationEvent event)
