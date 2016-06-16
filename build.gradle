@@ -19,6 +19,10 @@ version = "0.0.1"
 group= "fr.ourten.lightpulse"
 archivesBaseName = "LightPulse"
 
+compileJava.options.encoding = 'UTF-8'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 minecraft {
     version = "1.9.4-12.17.0.1962"
     runDir = "run"
