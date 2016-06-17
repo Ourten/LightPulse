@@ -50,7 +50,6 @@ public class ParticleVolatileLightBeam extends Particle
         }
 
         this.setParticleTextureIndex(7 - this.particleAge * 7 / this.particleMaxAge);
-        // System.out.println(this.pos.getY());
         this.posX = this.pos.getX();
         this.posY = this.pos.getY();
         this.posZ = this.pos.getZ();

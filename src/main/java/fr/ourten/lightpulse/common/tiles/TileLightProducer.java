@@ -24,7 +24,6 @@ public class TileLightProducer extends TileEntity implements ITickable
     @Override
     public void update()
     {
-        // System.out.println("TTT");
         if (this.rand.nextBoolean())
         {
             LightPulse.proxy.generateParticles("volatileLightBeam",

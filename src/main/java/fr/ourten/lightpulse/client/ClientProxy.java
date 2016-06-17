@@ -28,13 +28,6 @@ public class ClientProxy extends CommonProxy
     {
         if (Minecraft.getMinecraft().theWorld != null)
         {
-            // final double motionX =
-            // Minecraft.getMinecraft().theWorld.rand.nextGaussian() * 0.02D;
-            // final double motionY =
-            // Minecraft.getMinecraft().theWorld.rand.nextGaussian() * 0.02D;
-            // final double motionZ =
-            // Minecraft.getMinecraft().theWorld.rand.nextGaussian() * 0.02D;
-
             if (StringUtils.equals(identifier, "volatileLightBeam"))
             {
                 final Particle particleLight = new ParticleVolatileLightBeam(Minecraft.getMinecraft().theWorld, pos,
@@ -42,7 +35,7 @@ public class ClientProxy extends CommonProxy
                 Minecraft.getMinecraft().effectRenderer.addEffect(particleLight);
             }
             else
-                System.out.println("Unknown particle " + identifier + " has been requested");
+                System.out.println("Unknown particle [" + identifier + "] has been requested");
         }
     }
 
