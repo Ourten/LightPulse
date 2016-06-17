@@ -30,6 +30,7 @@ minecraft {
 }
 
 dependencies {
+	compile "com.dorkbox:TweenEngine:7.13"
 	compileOnly "org.projectlombok:lombok:1.16.8"
 }
 

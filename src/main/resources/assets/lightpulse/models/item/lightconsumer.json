@@ -1,0 +1,8 @@
+{
+	"parent": "block/cube_bottom_top",
+	"textures": {
+		"side": "lightpulse:blocks/consumer_side",
+		"top": "lightpulse:blocks/consumer_normal",
+		"bottom": "lightpulse:blocks/consumer_side"
+	}
+}

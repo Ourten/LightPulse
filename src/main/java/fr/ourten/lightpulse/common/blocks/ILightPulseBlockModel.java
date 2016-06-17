@@ -1,4 +1,4 @@
-package fr.ourten.lightpulse.common.blocks.energy;
+package fr.ourten.lightpulse.common.blocks;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

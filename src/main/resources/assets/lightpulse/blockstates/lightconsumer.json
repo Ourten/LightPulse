@@ -1,0 +1,28 @@
+{
+	"forge_marker": 1,
+	"variants": {
+		"facing=down": {
+			"model": "lightpulse:lightconsumer",
+			"x": 90
+		},
+		"facing=up": {
+			"model": "lightpulse:lightconsumer",
+			"x": 270
+		},
+		"facing=north": {
+			"model": "lightpulse:lightconsumer"
+		},
+		"facing=south": {
+			"model": "lightpulse:lightconsumer",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "lightpulse:lightconsumer",
+			"y": 270
+		},
+		"facing=east": {
+			"model": "lightpulse:lightconsumer",
+			"y": 90
+		}
+	}
+}

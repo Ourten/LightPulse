@@ -2,7 +2,7 @@ package fr.ourten.lightpulse.common.blocks.energy;
 
 import fr.ourten.lightpulse.common.LightPulseVars;
 import fr.ourten.lightpulse.common.blocks.ILightPulseBlockModel;
-import fr.ourten.lightpulse.common.tiles.TileLightProducer;
+import fr.ourten.lightpulse.common.tiles.TileLightRelay;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -25,11 +25,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockLightProducer extends BlockContainer implements ILightPulseBlockModel
+public class BlockLightRelay extends BlockContainer implements ILightPulseBlockModel
 {
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
-    public BlockLightProducer()
+    public BlockLightRelay()
     {
         super(Material.IRON);
     }
@@ -40,7 +40,7 @@ public class BlockLightProducer extends BlockContainer implements ILightPulseBlo
     {
         final Item itemBlock = Item.getItemFromBlock(this);
         final ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(
-                LightPulseVars.MODID + ":lightproducer", "inventory");
+                LightPulseVars.MODID + ":lightrelay", "inventory");
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemBlock, 0, itemModelResourceLocation);
         return this;
     }
@@ -155,6 +155,6 @@ public class BlockLightProducer extends BlockContainer implements ILightPulseBlo
     @Override
     public TileEntity createNewTileEntity(final World worldIn, final int meta)
     {
-        return new TileLightProducer();
+        return new TileLightRelay();
     }
 }

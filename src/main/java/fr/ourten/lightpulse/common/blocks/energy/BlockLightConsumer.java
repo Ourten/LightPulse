@@ -2,7 +2,7 @@ package fr.ourten.lightpulse.common.blocks.energy;
 
 import fr.ourten.lightpulse.common.LightPulseVars;
 import fr.ourten.lightpulse.common.blocks.ILightPulseBlockModel;
-import fr.ourten.lightpulse.common.tiles.TileLightProducer;
+import fr.ourten.lightpulse.common.tiles.TileLightConsumer;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -25,11 +25,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockLightProducer extends BlockContainer implements ILightPulseBlockModel
+public class BlockLightConsumer extends BlockContainer implements ILightPulseBlockModel
 {
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
-    public BlockLightProducer()
+    public BlockLightConsumer()
     {
         super(Material.IRON);
     }
@@ -40,7 +40,7 @@ public class BlockLightProducer extends BlockContainer implements ILightPulseBlo
     {
         final Item itemBlock = Item.getItemFromBlock(this);
         final ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(
-                LightPulseVars.MODID + ":lightproducer", "inventory");
+                LightPulseVars.MODID + ":lightconsumer", "inventory");
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemBlock, 0, itemModelResourceLocation);
         return this;
     }
@@ -50,7 +50,7 @@ public class BlockLightProducer extends BlockContainer implements ILightPulseBlo
             final EntityLivingBase placer, final ItemStack stack)
     {
         worldIn.setBlockState(pos,
-                state.withProperty(BlockLightProducer.FACING, BlockLightProducer.getFacingFromEntity(pos, placer)), 2);
+                state.withProperty(BlockLightConsumer.FACING, BlockLightConsumer.getFacingFromEntity(pos, placer)), 2);
     }
 
     public static EnumFacing getFacingFromEntity(final BlockPos pos, final EntityLivingBase entity)
@@ -96,7 +96,7 @@ public class BlockLightProducer extends BlockContainer implements ILightPulseBlo
                 enumfacing = EnumFacing.UP;
         }
 
-        return this.getDefaultState().withProperty(BlockLightProducer.FACING, enumfacing);
+        return this.getDefaultState().withProperty(BlockLightConsumer.FACING, enumfacing);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class BlockLightProducer extends BlockContainer implements ILightPulseBlo
     {
         int i;
 
-        switch (state.getValue(BlockLightProducer.FACING))
+        switch (state.getValue(BlockLightConsumer.FACING))
         {
             case EAST:
                 i = 1;
@@ -131,19 +131,19 @@ public class BlockLightProducer extends BlockContainer implements ILightPulseBlo
     @Override
     public IBlockState withRotation(final IBlockState state, final Rotation rot)
     {
-        return state.withProperty(BlockLightProducer.FACING, rot.rotate(state.getValue(BlockLightProducer.FACING)));
+        return state.withProperty(BlockLightConsumer.FACING, rot.rotate(state.getValue(BlockLightConsumer.FACING)));
     }
 
     @Override
     public IBlockState withMirror(final IBlockState state, final Mirror mirrorIn)
     {
-        return state.withRotation(mirrorIn.toRotation(state.getValue(BlockLightProducer.FACING)));
+        return state.withRotation(mirrorIn.toRotation(state.getValue(BlockLightConsumer.FACING)));
     }
 
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] { BlockLightProducer.FACING });
+        return new BlockStateContainer(this, new IProperty[] { BlockLightConsumer.FACING });
     }
 
     @Override
@@ -155,6 +155,6 @@ public class BlockLightProducer extends BlockContainer implements ILightPulseBlo
     @Override
     public TileEntity createNewTileEntity(final World worldIn, final int meta)
     {
-        return new TileLightProducer();
+        return new TileLightConsumer();
     }
 }

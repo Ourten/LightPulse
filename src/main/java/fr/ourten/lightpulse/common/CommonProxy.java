@@ -11,7 +11,10 @@ import fr.ourten.lightpulse.common.capabilities.energy.LightCapabilities.Capabil
 import fr.ourten.lightpulse.common.capabilities.energy.LightCapabilities.CapabilityLightProducer;
 import fr.ourten.lightpulse.common.capabilities.energy.LightCapabilities.CapabilityLightStorage;
 import fr.ourten.lightpulse.common.items.LightPulseItemManager;
+import fr.ourten.lightpulse.common.tiles.TileLightConsumer;
 import fr.ourten.lightpulse.common.tiles.TileLightProducer;
+import fr.ourten.lightpulse.common.tiles.TileLightRelay;
+import fr.ourten.lightpulse.common.util.Vector3d;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -33,6 +36,8 @@ public class CommonProxy
         LightPulseItemManager.getInstance().initItems();
 
         GameRegistry.registerTileEntity(TileLightProducer.class, LightPulseVars.MODID + ":tileLightProducer");
+        GameRegistry.registerTileEntity(TileLightConsumer.class, LightPulseVars.MODID + ":tileLightConsumer");
+        GameRegistry.registerTileEntity(TileLightRelay.class, LightPulseVars.MODID + ":tileLightRelay");
     }
 
     public void init(final FMLInitializationEvent e)
@@ -43,5 +48,9 @@ public class CommonProxy
     public void postInit(final FMLPostInitializationEvent e)
     {
 
+    }
+
+    public void generateParticles(final String identifier, final Vector3d pos)
+    {
     }
 }
