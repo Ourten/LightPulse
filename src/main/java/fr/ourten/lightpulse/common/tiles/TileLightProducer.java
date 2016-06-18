@@ -14,7 +14,8 @@ import net.minecraftforge.common.capabilities.Capability;
 public class TileLightProducer extends TileEntity implements ITickable
 {
     private final BaseLightProducer energy;
-    private final Random            rand = new Random();
+    private final Random            rand     = new Random();
+    private long                    lastTime = 0;
 
     public TileLightProducer()
     {
@@ -25,10 +26,15 @@ public class TileLightProducer extends TileEntity implements ITickable
     public void update()
     {
         if (this.rand.nextBoolean())
-        {
             LightPulse.proxy.generateParticles("volatileLightBeam",
                     new Vector3d(this.getPos().getX() + .5 + (this.rand.nextFloat() - .5) / 4, this.getPos().getY() + 1,
                             this.getPos().getZ() + .5 + (this.rand.nextFloat() - .5) / 4));
+
+        if (System.currentTimeMillis() - this.lastTime > 20000)
+        {
+            LightPulse.proxy.generateParticles("wallBeam",
+                    new Vector3d(this.getPos().getX() + .5, this.getPos().getY() + 1, this.getPos().getZ() + .5));
+            this.lastTime = System.currentTimeMillis();
         }
     }
 

@@ -74,58 +74,14 @@ public class BlockLightProducer extends BlockContainer implements ILightPulseBlo
     {
         EnumFacing enumfacing;
 
-        switch (meta & 7)
-        {
-            case 0:
-                enumfacing = EnumFacing.DOWN;
-                break;
-            case 1:
-                enumfacing = EnumFacing.EAST;
-                break;
-            case 2:
-                enumfacing = EnumFacing.WEST;
-                break;
-            case 3:
-                enumfacing = EnumFacing.SOUTH;
-                break;
-            case 4:
-                enumfacing = EnumFacing.NORTH;
-                break;
-            case 5:
-            default:
-                enumfacing = EnumFacing.UP;
-        }
-
+        enumfacing = EnumFacing.values()[meta & 7];
         return this.getDefaultState().withProperty(BlockLightProducer.FACING, enumfacing);
     }
 
     @Override
     public int getMetaFromState(final IBlockState state)
     {
-        int i;
-
-        switch (state.getValue(BlockLightProducer.FACING))
-        {
-            case EAST:
-                i = 1;
-                break;
-            case WEST:
-                i = 2;
-                break;
-            case SOUTH:
-                i = 3;
-                break;
-            case NORTH:
-                i = 4;
-                break;
-            case UP:
-            default:
-                i = 5;
-                break;
-            case DOWN:
-                i = 0;
-        }
-        return i;
+        return state.getValue(BlockLightProducer.FACING).ordinal();
     }
 
     @Override

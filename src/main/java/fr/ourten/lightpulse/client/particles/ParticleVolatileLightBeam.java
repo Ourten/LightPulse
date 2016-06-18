@@ -9,9 +9,6 @@ import net.minecraft.world.World;
 public class ParticleVolatileLightBeam extends Particle
 {
     private final Vector3d pos;
-    private final Vector3d dest;
-    private final double   range;
-    private final double   speed;
 
     final TweenManager     manager = new TweenManager();
 
@@ -22,12 +19,8 @@ public class ParticleVolatileLightBeam extends Particle
         this.particleScale = 0.75F;
         this.setSize(0.001f, 0.001f);
         this.setRBGColorF(0.96078431372f, 0.88235294117f, 0.36470588235f);
-        this.setMaxAge(40);
         this.motionX = 0;
         this.motionZ = 0;
-        this.range = range;
-        this.dest = dest;
-        this.speed = speed;
 
         this.pos = pos;
         this.setMaxAge((int) (range / speed));
