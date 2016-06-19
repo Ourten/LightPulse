@@ -6,7 +6,10 @@ import org.lwjgl.opengl.GL11;
 
 import com.google.common.collect.Queues;
 
+import dorkbox.tweenengine.Tween;
+import dorkbox.tweenengine.TweenManager;
 import fr.ourten.lightpulse.common.LightPulseVars;
+import fr.ourten.lightpulse.common.util.Vector1d;
 import fr.ourten.lightpulse.common.util.Vector3d;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -30,7 +33,9 @@ public class ParticleWallBeam extends Particle
     float                                 rotationXY;
     float                                 rotationXZ;
 
+    private final Vector1d                alpha;
     private final float                   innerWidth, innerHeight;
+    private final TweenManager            manager                    = new TweenManager();
 
     private static final ResourceLocation TEXTURE                    = new ResourceLocation(LightPulseVars.MODID,
             "textures/particles/wall.png");
@@ -40,7 +45,22 @@ public class ParticleWallBeam extends Particle
         super(worldIn, pos.getX(), pos.getY(), pos.getZ());
         this.setMaxAge(400);
         this.innerWidth = 0.4f;
+        this.particleAlpha = 0.2f;
+        this.alpha = new Vector1d(this.particleAlpha);
         this.innerHeight = 5;
+        Tween.to(this.alpha, 1, 2).target(0.6f).repeatAutoReverse(-1, .5f).start(this.manager);
+    }
+
+    @Override
+    public void onUpdate()
+    {
+        if (this.particleAge++ >= this.particleMaxAge)
+        {
+            this.manager.killAll();
+            this.setExpired();
+        }
+        this.particleAlpha = (float) this.alpha.getX();
+        this.manager.update(1 / 20.0f);
     }
 
     public static void dispatchQueuedRenders(final Tessellator tessellator)
@@ -71,27 +91,87 @@ public class ParticleWallBeam extends Particle
         final float posZ = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * this.partialTicks
                 - Particle.interpPosZ);
 
-        // System.out.println(this.prevPosX + " | " + this.posX);
         final VertexBuffer buff = tessellator.getBuffer();
 
+        // Front Front
         buff.pos(posX - (this.innerWidth / 2), posY, posZ + (this.innerWidth / 2)).tex(0, 1)
-                .color(this.particleRed, this.particleGreen, this.particleBlue, .5F).endVertex();
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
         buff.pos(posX - (this.innerWidth / 2), posY + this.innerHeight, posZ + (this.innerWidth / 2)).tex(1, 1)
-                .color(this.particleRed, this.particleGreen, this.particleBlue, .5F).endVertex();
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
         buff.pos(posX - (this.innerWidth / 2), posY + this.innerHeight, posZ - (this.innerWidth / 2)).tex(1, 0)
-                .color(this.particleRed, this.particleGreen, this.particleBlue, .5F).endVertex();
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
         buff.pos(posX - (this.innerWidth / 2), posY, posZ - (this.innerWidth / 2)).tex(0, 0)
-                .color(this.particleRed, this.particleGreen, this.particleBlue, .5F).endVertex();
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
 
+        // Front Back
+        buff.pos(posX - (this.innerWidth / 2), posY, posZ - (this.innerWidth / 2)).tex(0, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX - (this.innerWidth / 2), posY + this.innerHeight, posZ - (this.innerWidth / 2)).tex(1, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX - (this.innerWidth / 2), posY + this.innerHeight, posZ + (this.innerWidth / 2)).tex(1, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX - (this.innerWidth / 2), posY, posZ + (this.innerWidth / 2)).tex(0, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+
+        // Back Front
         buff.pos(posX + (this.innerWidth / 2), posY, posZ + (this.innerWidth / 2)).tex(0, 1)
-                .color(this.particleRed, this.particleGreen, this.particleBlue, .5F).endVertex();
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
         buff.pos(posX + (this.innerWidth / 2), posY + this.innerHeight, posZ + (this.innerWidth / 2)).tex(1, 1)
-                .color(this.particleRed, this.particleGreen, this.particleBlue, .5F).endVertex();
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
         buff.pos(posX + (this.innerWidth / 2), posY + this.innerHeight, posZ - (this.innerWidth / 2)).tex(1, 0)
-                .color(this.particleRed, this.particleGreen, this.particleBlue, .5F).endVertex();
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
         buff.pos(posX + (this.innerWidth / 2), posY, posZ - (this.innerWidth / 2)).tex(0, 0)
-                .color(this.particleRed, this.particleGreen, this.particleBlue, .5F).endVertex();
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
 
+        // Back back
+        buff.pos(posX + (this.innerWidth / 2), posY, posZ - (this.innerWidth / 2)).tex(0, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX + (this.innerWidth / 2), posY + this.innerHeight, posZ - (this.innerWidth / 2)).tex(1, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX + (this.innerWidth / 2), posY + this.innerHeight, posZ + (this.innerWidth / 2)).tex(1, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX + (this.innerWidth / 2), posY, posZ + (this.innerWidth / 2)).tex(0, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+
+        // Left Front
+        buff.pos(posX - (this.innerWidth / 2), posY, posZ - (this.innerWidth / 2)).tex(0, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX - (this.innerWidth / 2), posY + this.innerHeight, posZ - (this.innerWidth / 2)).tex(1, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX + (this.innerWidth / 2), posY + this.innerHeight, posZ - (this.innerWidth / 2)).tex(1, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX + (this.innerWidth / 2), posY, posZ - (this.innerWidth / 2)).tex(0, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+
+        // Left Back
+        buff.pos(posX + (this.innerWidth / 2), posY, posZ - (this.innerWidth / 2)).tex(0, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX + (this.innerWidth / 2), posY + this.innerHeight, posZ - (this.innerWidth / 2)).tex(1, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX - (this.innerWidth / 2), posY + this.innerHeight, posZ - (this.innerWidth / 2)).tex(1, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX - (this.innerWidth / 2), posY, posZ - (this.innerWidth / 2)).tex(0, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+
+        // Right Front
+        buff.pos(posX - (this.innerWidth / 2), posY, posZ + (this.innerWidth / 2)).tex(0, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX - (this.innerWidth / 2), posY + this.innerHeight, posZ + (this.innerWidth / 2)).tex(1, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX + (this.innerWidth / 2), posY + this.innerHeight, posZ + (this.innerWidth / 2)).tex(1, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX + (this.innerWidth / 2), posY, posZ + (this.innerWidth / 2)).tex(0, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+
+        // Right Back
+        buff.pos(posX + (this.innerWidth / 2), posY, posZ + (this.innerWidth / 2)).tex(0, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX + (this.innerWidth / 2), posY + this.innerHeight, posZ + (this.innerWidth / 2)).tex(1, 1)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX - (this.innerWidth / 2), posY + this.innerHeight, posZ + (this.innerWidth / 2)).tex(1, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
+        buff.pos(posX - (this.innerWidth / 2), posY, posZ + (this.innerWidth / 2)).tex(0, 0)
+                .color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).endVertex();
     }
 
     @Override

@@ -9,6 +9,7 @@ import fr.ourten.lightpulse.client.particles.ParticleVolatileLightBeam;
 import fr.ourten.lightpulse.client.particles.ParticleWallBeam;
 import fr.ourten.lightpulse.common.CommonProxy;
 import fr.ourten.lightpulse.common.blocks.LightPulseBlockManager;
+import fr.ourten.lightpulse.common.util.Vector1d;
 import fr.ourten.lightpulse.common.util.Vector3d;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -23,7 +24,8 @@ public class ClientProxy extends CommonProxy
         super.init(e);
 
         MinecraftForge.EVENT_BUS.register(new ParticleRenderDispatcher());
-        Tween.registerAccessor(Vector3d.class, new VectorAccessor());
+        Tween.registerAccessor(Vector3d.class, new Vector3dAccessor());
+        Tween.registerAccessor(Vector1d.class, new Vector1dAccessor());
         LightPulseBlockManager.getInstance().blockModels.forEach(model -> model.initItemModel());
     }
 
@@ -46,7 +48,7 @@ public class ClientProxy extends CommonProxy
                 System.out.println("Unknown particle [" + identifier + "] has been requested");
     }
 
-    private static class VectorAccessor implements TweenAccessor<Vector3d>
+    private static class Vector3dAccessor implements TweenAccessor<Vector3d>
     {
         @Override
         public int getValues(final Vector3d target, final int tweenType, final float[] returnValues)
@@ -66,6 +68,27 @@ public class ClientProxy extends CommonProxy
         {
             if (tweenType == 3)
                 target.set(newValues[0], newValues[1], newValues[2]);
+        }
+    }
+
+    private static class Vector1dAccessor implements TweenAccessor<Vector1d>
+    {
+        @Override
+        public int getValues(final Vector1d target, final int tweenType, final float[] returnValues)
+        {
+            if (tweenType == 1)
+            {
+                returnValues[0] = (float) target.getX();
+                return 1;
+            }
+            return 0;
+        }
+
+        @Override
+        public void setValues(final Vector1d target, final int tweenType, final float[] newValues)
+        {
+            if (tweenType == 1)
+                target.set(newValues[0]);
         }
     }
 }

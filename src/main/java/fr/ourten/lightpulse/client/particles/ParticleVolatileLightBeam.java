@@ -8,9 +8,9 @@ import net.minecraft.world.World;
 
 public class ParticleVolatileLightBeam extends Particle
 {
-    private final Vector3d pos;
+    private final Vector3d     pos;
 
-    final TweenManager     manager = new TweenManager();
+    private final TweenManager manager = new TweenManager();
 
     public ParticleVolatileLightBeam(final World w, final Vector3d pos, final Vector3d dest, final double range,
             final double speed)
