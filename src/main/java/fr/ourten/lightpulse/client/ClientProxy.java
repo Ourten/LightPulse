@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import dorkbox.tweenengine.Tween;
 import dorkbox.tweenengine.TweenAccessor;
+import fr.ourten.lightpulse.client.particles.ParticleBeamArtefact;
 import fr.ourten.lightpulse.client.particles.ParticleRenderDispatcher;
 import fr.ourten.lightpulse.client.particles.ParticleVolatileLightBeam;
 import fr.ourten.lightpulse.client.particles.ParticleWallBeam;
@@ -43,6 +44,11 @@ public class ClientProxy extends CommonProxy
             {
                 final Particle particleWall = new ParticleWallBeam(Minecraft.getMinecraft().theWorld, pos);
                 Minecraft.getMinecraft().effectRenderer.addEffect(particleWall);
+            }
+            else if (StringUtils.equals(identifier, "beamArtefact"))
+            {
+                final Particle beamArtefact = new ParticleBeamArtefact(Minecraft.getMinecraft().theWorld, pos);
+                Minecraft.getMinecraft().effectRenderer.addEffect(beamArtefact);
             }
             else
                 System.out.println("Unknown particle [" + identifier + "] has been requested");

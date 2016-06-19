@@ -14,8 +14,8 @@ import net.minecraftforge.common.capabilities.Capability;
 public class TileLightProducer extends TileEntity implements ITickable
 {
     private final BaseLightProducer energy;
-    private final Random            rand     = new Random();
-    private long                    lastTime = 0;
+    private final Random            rand         = new Random();
+    private long                    lastTimeBeam = 0, lastTimeArtefact;
 
     public TileLightProducer()
     {
@@ -25,16 +25,25 @@ public class TileLightProducer extends TileEntity implements ITickable
     @Override
     public void update()
     {
-        if (this.rand.nextBoolean())
-            LightPulse.proxy.generateParticles("volatileLightBeam",
-                    new Vector3d(this.getPos().getX() + .5 + (this.rand.nextFloat() - .5) / 4, this.getPos().getY() + 1,
-                            this.getPos().getZ() + .5 + (this.rand.nextFloat() - .5) / 4));
-
-        if (System.currentTimeMillis() - this.lastTime > 20000)
+        if (this.worldObj.isRemote)
         {
-            LightPulse.proxy.generateParticles("wallBeam",
-                    new Vector3d(this.getPos().getX() + .5, this.getPos().getY() + 1, this.getPos().getZ() + .5));
-            this.lastTime = System.currentTimeMillis();
+            if (this.rand.nextBoolean())
+                LightPulse.proxy.generateParticles("volatileLightBeam",
+                        new Vector3d(this.getPos().getX() + .5 + (this.rand.nextFloat() - .5) / 4,
+                                this.getPos().getY() + 1,
+                                this.getPos().getZ() + .5 + (this.rand.nextFloat() - .5) / 4));
+            if (System.currentTimeMillis() - this.lastTimeArtefact > 500)
+            {
+                LightPulse.proxy.generateParticles("beamArtefact",
+                        new Vector3d(this.getPos().getX() + .5, this.getPos().getY() + .5f, this.getPos().getZ() + .5));
+                this.lastTimeArtefact = System.currentTimeMillis();
+            }
+            if (System.currentTimeMillis() - this.lastTimeBeam > 20000)
+            {
+                LightPulse.proxy.generateParticles("wallBeam",
+                        new Vector3d(this.getPos().getX() + .5, this.getPos().getY() + 1, this.getPos().getZ() + .5));
+                this.lastTimeBeam = System.currentTimeMillis();
+            }
         }
     }
 
