@@ -1,5 +1,3 @@
-
-// For those who want the bleeding edge
 buildscript {
     repositories {
         jcenter()
@@ -24,7 +22,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 minecraft {
-    version = "1.9.4-12.17.0.1962"
+    version = "1.10.2-12.18.0.2007-1.10.0"
     runDir = "run"
     mappings = "snapshot_20160518"
 }
