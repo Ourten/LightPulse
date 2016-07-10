@@ -20,22 +20,17 @@ import net.minecraft.world.World;
 
 public class ParticleBeamArtefact extends Particle
 {
-    public static Queue<ParticleBeamArtefact> queuedRenders              = Queues.newArrayDeque();
-    public static Queue<ParticleBeamArtefact> queuedDepthIgnoringRenders = Queues.newArrayDeque();
-    // Queue values
-    float                                     partialTicks;
-    float                                     rotationX;
-    float                                     rotationZ;
-    float                                     rotationYZ;
-    float                                     rotationXY;
-    float                                     rotationXZ;
+    public static Queue<ParticleBeamArtefact> queuedRenders = Queues.newArrayDeque();
+
+    private float                             partialTicks;
+
     private float                             innerWidth;
     private final float                       innerHeight;
     private float                             currentAlpha;
     private final float                       startWidth;
     private final double                      startY;
 
-    private static final ResourceLocation     TEXTURE                    = new ResourceLocation(LightPulseVars.MODID,
+    private static final ResourceLocation     TEXTURE       = new ResourceLocation(LightPulseVars.MODID,
             "textures/particles/ring.png");
 
     public ParticleBeamArtefact(final World worldIn, final Vector3d pos)
@@ -176,11 +171,6 @@ public class ParticleBeamArtefact extends Particle
             final float rotationXZ)
     {
         this.partialTicks = partialTicks;
-        this.rotationX = rotationX;
-        this.rotationZ = rotationZ;
-        this.rotationYZ = rotationYZ;
-        this.rotationXY = rotationXY;
-        this.rotationXZ = rotationXZ;
 
         ParticleBeamArtefact.queuedRenders.add(this);
     }

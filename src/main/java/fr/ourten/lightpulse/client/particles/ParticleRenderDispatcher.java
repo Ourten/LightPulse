@@ -11,8 +11,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public final class ParticleRenderDispatcher
 {
-    public static int beamArtefactCount = 0;
-    public static int wallBeamCount     = 0;
+    public static int beamArtefactCount  = 0;
+    public static int volatileLightCount = 0;
+    public static int wallBeamCount      = 0;
 
     @SubscribeEvent
     public void onRenderWorldLast(final RenderWorldLastEvent event)
@@ -33,6 +34,8 @@ public final class ParticleRenderDispatcher
         ParticleWallBeam.dispatchQueuedRenders(tessellator);
         profiler.endStartSection("beamartefact");
         ParticleBeamArtefact.dispatchQueuedRenders(tessellator);
+        profiler.endStartSection("volatilelight");
+        ParticleVolatileLightBeam.dispatchQueuedRenders(tessellator);
         profiler.endSection();
         profiler.endSection();
 

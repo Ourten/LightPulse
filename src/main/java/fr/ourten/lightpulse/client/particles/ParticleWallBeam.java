@@ -23,22 +23,15 @@ import net.minecraft.world.World;
 
 public class ParticleWallBeam extends Particle
 {
-    public static Queue<ParticleWallBeam> queuedRenders              = Queues.newArrayDeque();
-    public static Queue<ParticleWallBeam> queuedDepthIgnoringRenders = Queues.newArrayDeque();
-    // Queue values
-    float                                 partialTicks;
-    float                                 rotationX;
-    float                                 rotationZ;
-    float                                 rotationYZ;
-    float                                 rotationXY;
-    float                                 rotationXZ;
+    public static Queue<ParticleWallBeam> queuedRenders = Queues.newArrayDeque();
+    private float                         partialTicks;
 
     private final Vector1d                alpha;
     private final float                   innerWidth, innerHeight;
-    private final TweenManager            manager                    = new TweenManager();
+    private final TweenManager            manager       = new TweenManager();
 
-    private static final ResourceLocation TEXTURE                    = new ResourceLocation(LightPulseVars.MODID,
-            "textures/particles/wall.png");
+    private static final ResourceLocation TEXTURE       = new ResourceLocation(LightPulseVars.MODID,
+            "textures/particles/lolilol.png");
 
     public ParticleWallBeam(final World worldIn, final Vector3d pos)
     {
@@ -180,11 +173,6 @@ public class ParticleWallBeam extends Particle
             final float rotationXZ)
     {
         this.partialTicks = partialTicks;
-        this.rotationX = rotationX;
-        this.rotationZ = rotationZ;
-        this.rotationYZ = rotationYZ;
-        this.rotationXY = rotationXY;
-        this.rotationXZ = rotationXZ;
 
         ParticleWallBeam.queuedRenders.add(this);
     }
